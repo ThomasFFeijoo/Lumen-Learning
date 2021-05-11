@@ -1,0 +1,12 @@
+version: "3.2"
+
+services:
+    lumen:
+        container_name: lumen
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 8090:8000
+        volumes:
+            - ../LumenAuthorsApi:/src
