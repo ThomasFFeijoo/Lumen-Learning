@@ -53,7 +53,9 @@ class AuthorController extends Controller
      * @return Illuminate\Http\Response
      */
     public function show($author) {
+        $author = Author::findOrFail($author);
 
+        return $this->successResponse($author);
     }
 
     /**
