@@ -89,7 +89,10 @@ class AuthorController extends Controller
      * @return Illuminate\Http\Response
      */
     public function destroy($author) {
+        $author = Author::findOrFail($author);
+        $author->delete();
 
+        return $this->successResponse($author); // author is in memory atm
     }
 
     //
