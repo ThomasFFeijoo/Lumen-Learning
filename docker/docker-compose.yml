@@ -1,8 +1,8 @@
 version: "3.2"
 
 services:
-    lumen:
-        container_name: lumen
+    authorsapi:
+        container_name: authorsapi
         build:
             context: .
             dockerfile: Dockerfile
@@ -10,3 +10,13 @@ services:
             - 8090:8000
         volumes:
             - ../LumenAuthorsApi:/src
+
+    booksapi:
+        container_name: booksapi
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 8091:8000
+        volumes:
+            - ../LumenBooksApi:/src
