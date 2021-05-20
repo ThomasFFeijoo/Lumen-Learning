@@ -88,7 +88,12 @@ class BookController extends Controller
      * Remove an existing book
      * @return Illuminate\Http\Response
      */
-    public function destroy($book) {
+    public function destroy($book) 
+    {
+        $book = Book::findOrFail($book);
 
+        $book->delete();
+
+        return $this->successResponse($book);
     }
 }
