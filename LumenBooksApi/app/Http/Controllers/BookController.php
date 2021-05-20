@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Book;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,8 @@ class BookController extends Controller
      * @return Illuminate\Http\Response
      */
     public function index() {
-
+        $books = Book::all();
+        return $this->successResponse($books);
     }
 
     /**
