@@ -53,7 +53,8 @@ class BookController extends Controller
      * @return Illuminate\Http\Response
      */
     public function show($book) {
-
+        $book = Book::findOrFail($book);
+        return $this->successResponse($book);
     }
 
     /**
