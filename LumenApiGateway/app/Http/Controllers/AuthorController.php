@@ -32,7 +32,9 @@ class AuthorController extends Controller
      * Return list of authors
      * @return Illuminate\Http\Response
      */
-    public function index() {
+    public function index() 
+    {
+        return $this->successResponse($this->authorService->obtainAuthors());
     }
 
     /**
