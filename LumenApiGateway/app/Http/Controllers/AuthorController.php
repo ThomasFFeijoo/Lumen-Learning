@@ -50,7 +50,9 @@ class AuthorController extends Controller
      * Obtain and show one author
      * @return Illuminate\Http\Response
      */
-    public function show($author) {
+    public function show($author) 
+    {
+        return $this->successResponse($this->authorService->obtainAuthor($author));
     }
 
     /**
