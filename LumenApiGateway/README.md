@@ -22,3 +22,10 @@ If you discover a security vulnerability within Lumen, please send an e-mail to 
 ## License
 
 The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Instructions
+
+php artisan migrate - create tables (passport included)
+php artisan passport:install - create encryption keys and personal access client
+php artisan passport:client - if more clients are needed
