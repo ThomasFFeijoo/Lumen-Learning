@@ -6,6 +6,7 @@ use App\User;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -26,7 +27,7 @@ class UserController extends Controller
      */
     public function index() {
         $users = User::all();
-        return $this->successResponse($users);
+        return $this->validResponse($users);
     }
 
     /**
@@ -42,9 +43,12 @@ class UserController extends Controller
 
         $this->validate($request, $rules);
 
-        $user = User::create($request->all());
+        $fields = $request->all();
+        $fields['password'] = Hash::make($request->password);
 
-        return $this->successResponse($user, Response::HTTP_CREATED);
+        $user = User::create($fields);
+
+        return $this->validResponse($user, Response::HTTP_CREATED);
     }
 
     /**
@@ -53,7 +57,7 @@ class UserController extends Controller
      */
     public function show($user) {
         $user = User::findOrFail($user);
-        return $this->successResponse($user);
+        return $this->validResponse($user);
     }
 
     /**
@@ -63,7 +67,7 @@ class UserController extends Controller
     public function update(Request $request, $user) {
         $rules = [
             'name' => 'max:255',
-            'email' => 'email|unique:user,email',
+            'email' => 'email|unique:user,email,' . $user,
             'password' => 'min:8|confirmed',
         ];
 
@@ -72,6 +76,10 @@ class UserController extends Controller
         $user = User::findOrFail($user);
 
         $user->fill($request->all());
+
+        if ($request->has('password')) {
+            $user->password = Hash::make($request->password);
+        }
         
         if ($user->isClean()) {
             return $this->errorResponse('At least one value must change', Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -79,7 +87,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return $this->successResponse($user);
+        return $this->validResponse($user);
     }
 
     /**
@@ -91,6 +99,6 @@ class UserController extends Controller
         $user = User::findOrFail($user);
         $user->delete();
 
-        return $this->successResponse($user);
+        return $this->validResponse($user);
     }
 }
