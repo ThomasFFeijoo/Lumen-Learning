@@ -37,7 +37,7 @@ class UserController extends Controller
     public function store(Request $request) {
         $rules = [
             'name' => 'required|max:255',
-            'email' => 'required|email|unique:user,email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
         ];
 
@@ -67,7 +67,7 @@ class UserController extends Controller
     public function update(Request $request, $user) {
         $rules = [
             'name' => 'max:255',
-            'email' => 'email|unique:user,email,' . $user,
+            'email' => 'email|unique:users,email,' . $user,
             'password' => 'min:8|confirmed',
         ];
 
