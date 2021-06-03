@@ -43,3 +43,9 @@ $router->group(['middleware' => 'client.credentials'], function() use ($router) 
     $router->delete('/users/{user}', 'UserController@destroy');
 });
 
+/**
+ * User credentials protected routes
+ */
+$router->group(['middleware' => 'auth:api'], function() use ($router) {
+    $router->get('/me', 'UserController@me');
+});

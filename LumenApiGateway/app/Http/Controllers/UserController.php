@@ -101,4 +101,12 @@ class UserController extends Controller
 
         return $this->validResponse($user);
     }
+
+    /**
+     * Identify an existing user
+     * @return Illuminate\Http\Response
+     */
+    public function me(Request $request) {
+        return $this->validResponse($request->user());
+    }
 }
